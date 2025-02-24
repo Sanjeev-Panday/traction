@@ -4,9 +4,9 @@
   genesis_url: 'http://test.bcovrin.vonx.io/genesis'
   endorser_did: 'SVfHGCEEvEFmpBPcxgNqRR'
   endorser_alias: 'bcovrin-test-endorser'
-- id: bcovrin-test-1
+- id: indicio-testnet
   is_production: true
   is_write: true
-  genesis_url: 'http://test.bcovrin.vonx.io/genesis'
-  endorser_did: 'SVfHGCEEvEFmpBPcxgNqRR'
-  endorser_alias: 'bcovrin-test-endorser-1'
+  genesis_url: 'https://raw.githubusercontent.com/Indicio-tech/indicio-network/main/genesis_files/pool_transactions_testnet_genesis'
+  endorser_did: 'MVomUoagg2TiKPoULnpKNm'
+  endorser_alias: 'indicio-testnet-endorser'
