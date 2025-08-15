@@ -1,21 +1,30 @@
 import logging
 
-from aiohttp import web
-from aiohttp_apispec import docs, match_info_schema, response_schema
 from acapy_agent.admin.decorators.auth import tenant_authentication
 from acapy_agent.admin.request_context import AdminRequestContext
 from acapy_agent.connections.models.conn_record import ConnRecord
 from acapy_agent.messaging.models.base import BaseModelError
-from acapy_agent.protocols.connections.v1_0.routes import (
-    ConnectionsConnIdMatchInfoSchema, InvitationResultSchema)
 from acapy_agent.storage.error import StorageNotFoundError
+from aiohttp import web
+from aiohttp_apispec import docs, match_info_schema, response_schema
+from connections.v1_0.routes import (ConnectionsConnIdMatchInfoSchema,
+                                     InvitationResultSchema)
+from marshmallow import fields
 
 LOGGER = logging.getLogger(__name__)
 
+class InvitationResponseSchema(InvitationResultSchema):
+    """Response schema for a previous connection invitation."""
+
+    alias = fields.Str(
+        required=False,
+        allow_none=True,
+        metadata={"description": "Optional alias for the connection", "example": "Bob"},
+    )
 
 @docs(tags=["connection"], summary="Fetch connection invitation")
 @match_info_schema(ConnectionsConnIdMatchInfoSchema())
-@response_schema(InvitationResultSchema(), 200, description="")
+@response_schema(InvitationResponseSchema(), 200, description="")
 @tenant_authentication
 async def connections_invitation(request: web.BaseRequest):
     """Handle fetching invitation associated with a single connection record."""

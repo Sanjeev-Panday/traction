@@ -30,7 +30,7 @@
         :header="`Identifier_${index + 1}`"
       >
         <ul>
-          <li v-for="(val, attr_name, i) in item" :key="i">
+          <li v-for="(val, attr_name) in item" :key="attr_name">
             <!-- eslint-disable-next-line @intlify/vue-i18n/no-raw-text -->
             <strong>{{ attr_name }}</strong> : {{ val }}
           </li>
@@ -125,7 +125,7 @@ const requested_attribute_groups = (): any => {
     Object.entries(
       props.presentation.acapy.presentation_exchange.presentation_request
         .requested_attributes
-    ).filter(([key, ra]: [string, any]): any => {
+    ).filter(([_key, ra]: [string, any]): any => {
       return 'names' in ra && 'restrictions' in ra;
     })
   );
@@ -136,7 +136,7 @@ const requested_single_attributes = (): any => {
     Object.entries(
       props.presentation.acapy.presentation_exchange.presentation_request
         .requested_attributes
-    ).filter(([key, ra]: [string, any]): any => {
+    ).filter(([_key, ra]: [string, any]): any => {
       return 'name' in ra && 'restrictions' in ra;
     })
   );
@@ -147,7 +147,7 @@ const requested_self_attested_attributes = (): any => {
     Object.entries(
       props.presentation.acapy.presentation_exchange.presentation_request
         .requested_attributes
-    ).filter(([key, ra]) => {
+    ).filter(([_key, ra]) => {
       // @ts-expect-error types have not been defined for this object
       return 'name' in ra && !('restrictions' in ra);
     })
